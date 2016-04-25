@@ -1,0 +1,16 @@
+lab5()
+{
+
+  ifstream ifile,ifile2,ifile3;
+  ifile.open("Dane1.dat");
+  ifile2.open("Dane2.dat");
+  ifile2.open("Dane3.dat");
+  double val;
+  while(ifile>>val)
+  {
+      cout<<val<<endl;
+  }
+  ifile.close();
+
+
+}

@@ -1,0 +1,11 @@
+void skrypt()
+{
+	TF1 *fun1 = new TF1("fun1", "2*x" , 0, 1
+	TCanvas *c1 = new TCanvas("c1","lab01",10,10,800,600);//nazwa wskaznika,tytul okna,x,y 
+	//szerokosc x,wysokosc
+	//double c=5;
+	//cout << c << endl;
+	//c = c*2;
+	//cout << c << endl;
+}
+

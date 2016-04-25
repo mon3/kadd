@@ -1,0 +1,34 @@
+double function(double *x, double *params)
+{
+  return params[0]*TMath::Power(x[0],params[1])*TMath::Power(x[1],params[2]);
+
+}
+
+
+lab3()
+{
+  TCanvas *c1 = new TCanvas("c1","lab3",10,10,800,600);
+  // c1 -> Divide(2,1);
+  //c1 -> cd(1);
+  int nparams 3;
+  double xmin = 0;
+  double xmax = 10;
+  double ymin = 0;
+  double xmax = 10;
+  int nparams = 1;
+  int n = 2;
+  int m = 1;
+  TF2 *fun1 = new TF2("fun1",function, xmin, xmax, ymin, ymax,nparams);
+  // fun1 -> FixParameter(0,double(1/a));
+  fun1->SetParameter(1,m);
+  fun1->SetParameter(2,n);
+  fun1->SetTitle("Gestosc");
+  double c =1./(fun1 -> Integral(0,1,0,1));
+  fun1 -> FixParameter(0,c);
+  cout << "c: " << c<< endl;
+  // fun1->GetXaxis()->SetTitle("x");;
+  // fun1->GetYaxis()->SetTitle("f(x)");
+  fun1 -> Draw("surf1");
+
+}
+
