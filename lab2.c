@@ -37,7 +37,7 @@ lab2()
 
   //kwartyle - sprawdzamy zanim x bedzie mniejsze od 0,25
   
-  double b = double(1/20.0);
+  double b = double(1/20.0); // b*1000=50 -daje nam gorny zakres funkcji
   //kwartyl x_0,25
   //lecimy po x-ach od 0.25 do 250
   //szukamy takiej wartosci x, dla ktorej dystrybuanta bedzie rowna 0.25

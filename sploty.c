@@ -1,21 +1,31 @@
+// f - tablica wskaznikow do obiektow TF1, rozklady skladowe
+// k - wymiar tablicy f
+// h - histogram do ktorego wrzucamy wynik splotu
+// n - liczba losowan
+
 void splot(TF1 **f, int k, TH1D *h, int n)
 {
 
   for(int  i=0;i<n;i++){
     double sum = 0.0;
 
+    // k - wskazuje na ilosc funkcji, ktore wchodza w splot
     for(int j=0;j<k;j++)
       {
-	sum += f[j]->GetRandom();
-	
+		sum += f[j]->GetRandom();
       }
 
+    // wypelniamy histogram dla N iteracji
     h->Fill(sum);
   }
 
 }
 
 
+// n - liczba prób (kul)
+// l - liczba rzędów
+// p - prawdopodobieństwo ruchu kuli w prawo (sukcesu)
+// przybliza rozklad dwumianowy
 void deskaGaltona(TH1D * h, int n, int l, double p){
 
   for(int j=0;j<n;j++)
@@ -49,6 +59,9 @@ sploty(){
    double min = 0.0;
    double max = 2.0;
    
+   // rozklad jednorodny y = 1/(b-a)
+   // U(0.0, 2.0)
+   // w jednorodnym(prostokat - wersja ciagla), kazda liczba wylosowana moze byc z jednakowym prawdopodobienstwem
    TF1 *fun1 = new TF1("fun1", "0.5+0*x", min,max);
    TF1 *fun2 = new TF1("fun2", "0.5+0*x", min,max);
    TF1 *fun3 = new TF1("fun3", "0.5+0*x", min,max);
@@ -73,9 +86,10 @@ sploty(){
    hist2 -> Draw();
    
    c1 -> cd(3);
+   // mi - srednia, sigma - odchylenie
    double mi1 = 1.0;
    double sigma1 = 0.2;
-   TF1 *fun4 = new TF1("fun4", "1./TMath::Sqrt((2*TMath::Pi()*[1]*[1]))*TMath::Exp(-(x-[0])*(x-[0])/(2*[1]*[1]))",-10.0,10.0);
+   TF1 *fun4 = new TF1("fun4", "1./TMath::Sqrt((2*TMath::Pi()*[1]*[1]))*TMath::Exp(-(x-[0])*(x-[0])/(2*[1]*[1]))",0.0,4.0);
     fun4 -> SetParameter(0,mi1);
     fun4 -> SetParameter(1,sigma1);
 
@@ -84,7 +98,7 @@ sploty(){
 
  double mi2 = 3.0;
  double sigma2 = 0.5;
- TF1 *fun5 = new TF1("fun5", "1./TMath::Sqrt((2*TMath::Pi()*[1]*[1]))*TMath::Exp(-(x-[0])*(x-[0])/(2*[1]*[1]))",-10.0,10.0);
+ TF1 *fun5 = new TF1("fun5", "1./TMath::Sqrt((2*TMath::Pi()*[1]*[1]))*TMath::Exp(-(x-[0])*(x-[0])/(2*[1]*[1]))",1.0,6.0);
   fun5 -> SetParameter(0,mi2);
   fun5 -> SetParameter(1,sigma2);
 
@@ -97,11 +111,15 @@ sploty(){
 
    hist3 -> Draw();
 
+   // wartosci oczekiwane
    cout<<" E(X) 1:"<<mi1<<endl;
    cout<<" E(X) 2:"<<mi2<<endl;
 
+   // przy splocie wartosci oczekiwane sie dodaja
    cout<<" E(X) :"<<hist3->GetMean()<<endl;
 
+   // wariancje VX = sigma^2
+   // wariancje przy splocie rozkladow normalnych dodaja sie w kwadracie
    cout<<" VX 1:"<<sigma1*sigma1<<endl;
    cout<<" VX 2:"<<sigma2*sigma2<<endl;
    cout<<" VX :"<<hist2->GetRMS()<<endl;

@@ -45,7 +45,7 @@ zmienne()
     {
     for(double y=0; y<=ymax; y+=0.1)
       {
-        // x i y trzeba przeliczyc na numery binow
+        // x i y trzeba przeliczyc na numery binow, bo integral po x-ach z funkcji
 	hist -> SetBinContent(x*10+1,y*10+1, fun1 -> Integral(0, x, 0, y));
 	
      }
